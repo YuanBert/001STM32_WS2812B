@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Project>
-<ProjectName>C:\Users\Zgeny\Desktop\001STM32_WS2812B\WS2812Bv1.0\\WS2812Bv1.0</ProjectName>
+<ProjectName>E:\Users\bertz\Documents\GitHub\001STM32_WS2812B\WS2812Bv1.0\\WS2812Bv1.0</ProjectName>
 <ProjectNature>C</ProjectNature> 
 <CMSIS>..\Drivers\CMSIS</CMSIS>
-<HAL_Driver>C:\Users\Zgeny\STM32Cube\Repository\STM32Cube_FW_F1_V1.6.1\Drivers\CMSIS</HAL_Driver>
+<HAL_Driver>C:\Users\bertz\STM32Cube\Repository\STM32Cube_FW_F1_V1.6.1\Drivers\CMSIS</HAL_Driver>
 <Toolchain>EWARM</Toolchain>
 	<Toolversion>0</Toolversion>
 <Version>0</Version>
@@ -34,7 +34,7 @@
     <usedDebug>true</usedDebug>
     	<debugprobe>swd</debugprobe>
     <optimization></optimization>
-    <icfloc>1</icfloc>
+    <icfloc>0</icfloc>
     <Adefines>
         <define></define>
     </Adefines>   

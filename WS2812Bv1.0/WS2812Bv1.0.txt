@@ -1,6 +1,6 @@
 Configuration	WS2812Bv1.0
 STM32CubeMX 	4.25.0
-Date	04/09/2018
+Date	04/10/2018
 MCU	STM32F103C8Tx
 
 
@@ -34,7 +34,7 @@ SOFTWARE PROJECT
 
 Project Settings : 
 Project Name : WS2812Bv1.0
-Project Folder : C:\Users\Zgeny\Desktop\001STM32_WS2812B\WS2812Bv1.0
+Project Folder : E:\Users\bertz\Documents\GitHub\001STM32_WS2812B\WS2812Bv1.0
 Toolchain / IDE : EWARM
 Firmware Package Name and Version : STM32Cube FW_F1 V1.6.1
 

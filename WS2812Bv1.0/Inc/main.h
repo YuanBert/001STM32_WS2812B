@@ -51,6 +51,7 @@
 
 #define Switch_Key_Pin GPIO_PIN_5
 #define Switch_Key_GPIO_Port GPIOA
+#define Switch_Key_EXTI_IRQn EXTI9_5_IRQn
 #define RightLEDs_Ctrl_Pin GPIO_PIN_13
 #define RightLEDs_Ctrl_GPIO_Port GPIOB
 #define LeftLEDs_Ctrl_Pin GPIO_PIN_14

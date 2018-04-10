@@ -13,6 +13,12 @@ void bsp_ws2812bReset(void);
 void bsp_ws2812bSendArryDataToRight(uint8_t *pArry, uint16_t len);
 void bsp_ws2812bSendArryDataToLeft(uint8_t *pArry, uint16_t len);
 
+
+void bsp_ws2812bFlashModeOne(void);
+void bsp_ws2812bFlashModeTwo(void);
+void bsp_ws2812bFlashModeThree(void);
+void bsp_ws2812bFlashModeFour(void);
+
  
 #ifdef __cplusplus
 }

@@ -51,7 +51,13 @@
 
 /* USER CODE BEGIN PV */
 /* Private variables ---------------------------------------------------------*/
-uint8_t leds[] = {0xFF,0x00,0x00,0x00,0xFF,0x00,0x00,0x00,0xFF,};
+uint8_t gModeChangeFlag;
+uint8_t gModeCode;
+uint8_t gDisplayedFlag;
+uint8_t gTimer3CntFlag;
+uint8_t gFlashNumberCnt;
+uint8_t gFlashColorCnt;
+uint8_t leds[108] = {0};
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -75,7 +81,6 @@ static void MX_NVIC_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-
   /* USER CODE END 1 */
 
   /* MCU Configuration----------------------------------------------------------*/
@@ -102,6 +107,8 @@ int main(void)
   /* Initialize interrupts */
   MX_NVIC_Init();
   /* USER CODE BEGIN 2 */
+  HAL_TIM_Base_Start_IT(&htim3);
+  gModeCode = 1;
 
   /* USER CODE END 2 */
 
@@ -113,10 +120,21 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-    bsp_ws2812bSendArryDataToRight(leds,9);
-    bsp_ws2812bSendArryDataToLeft(leds,9);
-    HAL_Delay(500);
-
+    
+    bsp_ws2812bFlashModeOne();
+    if(gTimer3CntFlag)
+    {
+      gTimer3CntFlag = 0;
+      
+      asm("NOP");       //为什么添加适当延时之后，LED控制才不会跳闪，如果不添加此延时会出现跳闪现象
+      asm("NOP");
+      
+      bsp_ws2812bSendArryDataToLeft(leds,108);   
+      bsp_ws2812bSendArryDataToRight(leds,108);
+         
+      gDisplayedFlag = 1;      
+    }
+    
   }
   /* USER CODE END 3 */
 
@@ -187,7 +205,49 @@ static void MX_NVIC_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
+/**
+  * @brief  Period elapsed callback in non blocking mode 
+  * @param  htim : TIM handle
+  * @retval None
+  */
+void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(htim);
+  /* NOTE : This function Should not be modified, when the callback is needed,
+            the __HAL_TIM_PeriodElapsedCallback could be implemented in the user file
+   */
+  if(htim3.Instance == htim->Instance)
+  {
+    gTimer3CntFlag = 1;
+  }
 
+}
+
+/**
+  * @brief  EXTI line detection callbacks.
+  * @param  GPIO_Pin: Specifies the pins connected EXTI line
+  * @retval None
+  */
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  /* Prevent unused argument(s) compilation warning */
+  UNUSED(GPIO_Pin);
+  /* NOTE: This function Should not be modified, when the callback is needed,
+           the HAL_GPIO_EXTI_Callback could be implemented in the user file
+   */
+  
+  if(Switch_Key_Pin == GPIO_Pin)
+  {
+      
+      gModeChangeFlag = 1;
+      gModeCode++;
+      if(gModeCode > 4) //四种切换模式
+      {
+        gModeCode = 1;
+      }
+  }
+}
 /* USER CODE END 4 */
 
 /**
