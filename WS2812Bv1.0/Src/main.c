@@ -120,8 +120,11 @@ int main(void)
   /* USER CODE END WHILE */
 
   /* USER CODE BEGIN 3 */
-    
     bsp_ws2812bFlashModeOne();
+    bsp_ws2812bFlashModeTwo();
+    bsp_ws2812bFlashModeThree();
+    bsp_ws2812bFlashModeFour();
+    
     if(gTimer3CntFlag)
     {
       gTimer3CntFlag = 0;
@@ -244,7 +247,7 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
       gModeCode++;
       if(gModeCode > 4) //四种切换模式
       {
-        gModeCode = 1;
+       gModeCode = 1;
       }
   }
 }
