@@ -1,6 +1,6 @@
 #include "bsp_ws2812b.h"
 
-static uint8_t i,j,k;
+static uint8_t i,j,k,p,q;
 extern uint8_t gModeCode;
 extern uint8_t gModeChangeFlag;
 extern uint8_t gDisplayedFlag;
@@ -140,6 +140,7 @@ void bsp_ws2812bFlashModeOne(void)
         i = 0;
         j = 0;
         k = 0;
+        p = 0;
         gModeChangeFlag = 0;
       }
       
@@ -379,6 +380,7 @@ void bsp_ws2812bFlashModeTwo(void)
 void bsp_ws2812bFlashModeThree(void)
 {
       uint8_t n;
+      uint8_t data;
       if(3 != gModeCode)
       {
         return ;
@@ -393,14 +395,71 @@ void bsp_ws2812bFlashModeThree(void)
         i = 0;
         j = 0;
         k = 0;
+        p = 0;
+        q = 0;
+        for(n = 0; n < 108; n++)
+	{
+          leds[n] = 0;
+	}
         gModeChangeFlag = 0;
       } 
+      
+      if(1 == i)
+      {
+        data = 0x00;
+      }
+      else
+      {
+        data = 0xFF;
+      }
+      
+      leds[3*j + k] = data;
+      leds[15 + 3*j + k] = data;
+      leds[30 + 3*j + k] = data;
+      leds[45 + 3*j + k] = data;
+      
+      leds[60 + 3*p + k] = data;
+      leds[69 + 3*p + k] = data;
+      leds[78 + 3*p + k] = data;
+      leds[87 + 3*p + k] = data;
+      
+      leds[96 + k] = data;
+      leds[99 + k] = data;
+      leds[102 + k] = data;
+      leds[105 + k] = data;
+      
+      p++;
+      k++;
+      if(p > 2)
+      {
+        p = 0;
+      }
+      if(k > 2)
+      {
+        k = 0;
+      }
+      
+      j++;
+      if(j > 4)
+      {
+        j = 0;
+        if(1 == i)
+        {
+          i = 0;
+        }
+        else
+        {
+          i = 1;
+        }
+      }
+      gDisplayedFlag = 0;
       
       
 }
 void bsp_ws2812bFlashModeFour(void)
 {
        uint8_t n;
+       uint8_t data;
       if(4 != gModeCode)
       {
         return ;
@@ -415,9 +474,64 @@ void bsp_ws2812bFlashModeFour(void)
         i = 0;
         j = 0;
         k = 0;
+        p = 0;
+        for(n = 0; n < 108; n++)
+	{
+          leds[n] = 0;
+	}
         gModeChangeFlag = 0;
       } 
       
+            
+      if(1 == i)
+      {
+        data = 0x00;
+      }
+      else
+      {
+        data = 0xFF;
+      }
       
+      leds[12 - 3*j + k] = data;
+      leds[15 + 12 - 3*j + k] = data;
+      leds[30 + 12 - 3*j + k] = data;
+      leds[45 + 12 - 3*j + k] = data;
+      
+      leds[60 + 6 - 3*p + k] = data;
+      leds[69 + 6 - 3*p + k] = data;
+      leds[78 + 6 - 3*p + k] = data;
+      leds[87 + 6 - 3*p + k] = data;
+      
+      leds[96 + k] = data;
+      leds[99 + k] = data;
+      leds[102 + k] = data;
+      leds[105 + k] = data;
+      
+      p++;
+      k++;
+      if(p > 2)
+      {
+        p = 0;
+      }
+      if(k > 2)
+      {
+        k = 0;
+      }
+      
+      j++;
+      if(j > 4)
+      {
+        j = 0;
+        //k = 0;
+        if(1 == i)
+        {
+          i = 0;
+        }
+        else
+        {
+          i = 1;
+        }
+      }
+      gDisplayedFlag = 0;
 }
 
